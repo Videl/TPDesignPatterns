@@ -2,7 +2,7 @@ package eu.telecomnancy.ui;
 
 import eu.telecomnancy.sensor.ISensor;
 import eu.telecomnancy.sensor.SensorNotActivatedException;
-import eu.telecomnancy.sensor.TemperatureSensor;
+import eu.telecomnancy.sensor.WindSensor;
 
 import javax.swing.*;
 import java.awt.*;
@@ -21,7 +21,7 @@ public class SensorView extends JPanel implements Observer {
 
     public SensorView(ISensor c) {
         this.sensor = c;
-        ((TemperatureSensor)this.sensor).addObserver(this);
+        ((WindSensor)this.sensor).addObserver(this);
 
         this.setLayout(new BorderLayout());
 
@@ -68,10 +68,10 @@ public class SensorView extends JPanel implements Observer {
 
     @Override
     public void update(Observable o, Object arg) {
-        if(o instanceof TemperatureSensor)
+        if(o instanceof WindSensor)
         {
             try {
-                this.value.setText(""+((TemperatureSensor) o).getValue());
+                this.value.setText(""+((WindSensor) o).getValue());
             } catch (SensorNotActivatedException e) {
             }
         }

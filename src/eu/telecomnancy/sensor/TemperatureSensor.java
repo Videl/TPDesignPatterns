@@ -4,8 +4,9 @@ import java.util.Observable;
 import java.util.Random;
 
 public class TemperatureSensor extends Observable implements ISensor {
-    boolean state;
-    double value = 0;
+    private boolean state;
+    private double value = 0;
+
 
     @Override
     public void on() {
