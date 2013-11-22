@@ -2,13 +2,16 @@ package eu.telecomnancy.ui;
 
 import eu.telecomnancy.sensor.ISensor;
 import eu.telecomnancy.sensor.SensorNotActivatedException;
+import eu.telecomnancy.sensor.TemperatureSensor;
 
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.Observable;
+import java.util.Observer;
 
-public class SensorView extends JPanel {
+public class SensorView extends JPanel implements Observer {
     private ISensor sensor;
 
     private JLabel value = new JLabel("N/A °C");
@@ -18,6 +21,8 @@ public class SensorView extends JPanel {
 
     public SensorView(ISensor c) {
         this.sensor = c;
+        ((TemperatureSensor)this.sensor).addObserver(this);
+
         this.setLayout(new BorderLayout());
 
         value.setHorizontalAlignment(SwingConstants.CENTER);
@@ -59,5 +64,16 @@ public class SensorView extends JPanel {
         buttonsPanel.add(off);
 
         this.add(buttonsPanel, BorderLayout.SOUTH);
+    }
+
+    @Override
+    public void update(Observable o, Object arg) {
+        if(o instanceof TemperatureSensor)
+        {
+            try {
+                this.value.setText(""+((TemperatureSensor) o).getValue());
+            } catch (SensorNotActivatedException e) {
+            }
+        }
     }
 }
