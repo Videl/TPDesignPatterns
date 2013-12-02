@@ -21,7 +21,7 @@ public class SensorView extends JPanel implements Observer {
 
     public SensorView(ISensor c) {
         this.sensor = c;
-        ((WindSensor)this.sensor).addObserver(this);
+        ((Observable)this.sensor).addObserver(this);
 
         this.setLayout(new BorderLayout());
 
