@@ -68,10 +68,10 @@ public class SensorView extends JPanel implements Observer {
 
     @Override
     public void update(Observable o, Object arg) {
-        if(o instanceof WindSensor)
+        if(o instanceof ISensor)
         {
             try {
-                this.value.setText(""+((WindSensor) o).getValue());
+                this.value.setText(""+((ISensor) o).getValue());
             } catch (SensorNotActivatedException e) {
             }
         }
