@@ -11,10 +11,12 @@ import eu.telecomnancy.sensor.SensorNotActivatedException;
  * To change this template use File | Settings | File Templates.
  */
 public class StateTurnedOff implements IState {
+    private ISensor sensor;
 
-    public StateTurnedOff()
+    public StateTurnedOff(ISensor mother)
     {
         writeName();
+        this.sensor = mother;
     }
 
     @Override
@@ -27,7 +29,7 @@ public class StateTurnedOff implements IState {
         return false;
     }
 
-    public void update() throws SensorNotActivatedException {
+    public double update() throws SensorNotActivatedException {
         throw new SensorNotActivatedException("Sensor must be activated before acquiring new values.");
     }
 

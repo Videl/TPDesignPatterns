@@ -12,6 +12,5 @@ public interface IState {
 
     public void writeName();
     public boolean getState();
-    public void update() throws SensorNotActivatedException;
-    public double getValue() throws SensorNotActivatedException;
+    public double update() throws SensorNotActivatedException;
 }

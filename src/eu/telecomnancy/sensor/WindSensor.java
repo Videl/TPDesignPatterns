@@ -24,12 +24,12 @@ public class WindSensor extends Observable implements ISensor {
 
     @Override
     public void on() {
-        currentState = new StateTurnedOn();
+        currentState = new StateTurnedOn(this);
     }
 
     @Override
     public void off() {
-        currentState = new StateTurnedOff();
+        currentState = new StateTurnedOff(this);
     }
 
     @Override
@@ -39,13 +39,13 @@ public class WindSensor extends Observable implements ISensor {
 
     @Override
     public void update() throws SensorNotActivatedException {
-        currentState.update();
+        value = currentState.update();
         setChanged();
         notifyObservers();
     }
 
     @Override
     public double getValue() throws SensorNotActivatedException {
-        return currentState.getValue();
+        return value;
     }
 }

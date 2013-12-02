@@ -14,11 +14,11 @@ import java.util.Random;
  */
 public class StateTurnedOn implements IState {
     private ISensor sensor;
-    private double value;
 
-    public StateTurnedOn()
+    public StateTurnedOn(ISensor mother)
     {
         writeName();
+        this.sensor = mother;
     }
 
     public void writeName() {
@@ -29,11 +29,7 @@ public class StateTurnedOn implements IState {
         return true;
     }
 
-    public void update() throws SensorNotActivatedException {
-        value = (new Random()).nextDouble() * 100;
-    }
-
-    public double getValue() throws SensorNotActivatedException {
-        return value;
+    public double update() throws SensorNotActivatedException {
+        return ((new Random()).nextDouble() * 100);
     }
 }
