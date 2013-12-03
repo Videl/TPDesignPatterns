@@ -1,31 +1,32 @@
 package eu.telecomnancy.sensor.state;
 
-import eu.telecomnancy.sensor.ISensor;
 import eu.telecomnancy.sensor.SensorNotActivatedException;
 
 /**
- * Created with IntelliJ IDEA.
  * User: videl
  * Date: 11/22/13
  * Time: 9:32 AM
- * To change this template use File | Settings | File Templates.
  */
 public class StateTurnedOff implements IState {
-    private ISensor sensor;
+    private ISensorState sensor;
 
-    public StateTurnedOff(ISensor mother)
+    public StateTurnedOff(ISensorState mother)
     {
-        writeName();
         this.sensor = mother;
     }
 
     @Override
-    public void writeName() {
-        System.out.println("Etat éteint");
+    public void on() {
+        sensor.setState(new StateTurnedOn(sensor));
     }
 
     @Override
-    public boolean getState() {
+    public void off() {
+        // nothing to do
+    }
+
+    @Override
+    public boolean getStatus() {
         return false;
     }
 

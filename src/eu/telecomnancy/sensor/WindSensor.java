@@ -1,40 +1,38 @@
 package eu.telecomnancy.sensor;
 
+import eu.telecomnancy.sensor.state.ISensorState;
 import eu.telecomnancy.sensor.state.IState;
 import eu.telecomnancy.sensor.state.StateTurnedOff;
-import eu.telecomnancy.sensor.state.StateTurnedOn;
 
 import java.util.Observable;
-import java.util.Random;
 
 /**
- * Created with IntelliJ IDEA.
  * User: videl
  * Date: 11/22/13
  * Time: 9:24 AM
  */
-public class WindSensor extends Observable implements ISensor {
+public class WindSensor extends Observable implements ISensorState {
     private double value = 0;
     private IState currentState;
 
     public WindSensor()
     {
-        off();
-    }
-
-    @Override
-    public void on() {
-        currentState = new StateTurnedOn(this);
-    }
-
-    @Override
-    public void off() {
         currentState = new StateTurnedOff(this);
     }
 
     @Override
+    public void on() {
+        currentState.on();
+    }
+
+    @Override
+    public void off() {
+        currentState.off();
+    }
+
+    @Override
     public boolean getStatus() {
-        return currentState.getState();
+        return currentState.getStatus();
     }
 
     @Override
@@ -47,5 +45,13 @@ public class WindSensor extends Observable implements ISensor {
     @Override
     public double getValue() throws SensorNotActivatedException {
         return value;
+    }
+
+    public void setState(IState newState)
+    {
+        this.currentState = newState;
+
+        setChanged();
+        notifyObservers();
     }
 }

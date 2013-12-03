@@ -10,7 +10,9 @@ import eu.telecomnancy.sensor.SensorNotActivatedException;
  */
 public interface IState {
 
-    public void writeName();
-    public boolean getState();
+    public void on();
+    public void off();
+    public boolean getStatus();
     public double update() throws SensorNotActivatedException;
+    public double getValue() throws SensorNotActivatedException;
 }

@@ -1,35 +1,43 @@
 package eu.telecomnancy.sensor.state;
 
-import eu.telecomnancy.sensor.ISensor;
 import eu.telecomnancy.sensor.SensorNotActivatedException;
 
 import java.util.Random;
 
 /**
- * Created with IntelliJ IDEA.
  * User: videl
  * Date: 11/22/13
  * Time: 9:31 AM
- * To change this template use File | Settings | File Templates.
  */
 public class StateTurnedOn implements IState {
-    private ISensor sensor;
+    private ISensorState sensor;
 
-    public StateTurnedOn(ISensor mother)
+    public StateTurnedOn(ISensorState mother)
     {
-        writeName();
         this.sensor = mother;
     }
 
-    public void writeName() {
-        System.out.println("Etat allumé");
+    @Override
+    public void on() {
+        // nothing to do
     }
 
-    public boolean getState() {
+    @Override
+    public void off() {
+        sensor.setState(new StateTurnedOff(sensor));
+    }
+
+    @Override
+    public boolean getStatus() {
         return true;
     }
 
     public double update() throws SensorNotActivatedException {
         return ((new Random()).nextDouble() * 100);
+    }
+
+    @Override
+    public double getValue() throws SensorNotActivatedException {
+        return 0;
     }
 }

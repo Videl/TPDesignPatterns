@@ -70,9 +70,17 @@ public class SensorView extends JPanel implements Observer {
     public void update(Observable o, Object arg) {
         if(o instanceof ISensor)
         {
-            try {
-                this.value.setText(""+((ISensor) o).getValue());
-            } catch (SensorNotActivatedException e) {
+            ISensor model = (ISensor) o;
+            if(model.getStatus())
+            {
+                try {
+                    this.value.setText(""+(model.getValue()));
+                } catch (SensorNotActivatedException e) {
+                }
+            }
+            else
+            {
+                this.value.setText("Sensor turned off.");
             }
         }
     }
